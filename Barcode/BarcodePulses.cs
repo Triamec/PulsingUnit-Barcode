@@ -6,7 +6,7 @@ using Triamec.TriaLink;
 // program. This file is located in the bin\Debug or bin\Release subfolders and will commonly be copied into the
 // Tama directory of the default workspace, too.
 [Tama]
-internal class TamaProgram
+internal class BarcodePulses
 {
 
     // Linear State Machine, shown in Register.Application.TamaControl.IsochronousMainState
@@ -43,7 +43,7 @@ internal class TamaProgram
     static int[] cPulseOn = new int[5];
 
     // Constructor
-    public TamaProgram()
+    public BarcodePulses()
     {
         cPulseCountPositive[0] = 8;
         cPulseCountPositive[1] = 5;
@@ -62,6 +62,9 @@ internal class TamaProgram
         cPulseOn[2] = 1;
         cPulseOn[3] = 0;
         cPulseOn[4] = 1;
+
+        Register.Axes_0.Commands.OptionModule.PU_Output = OptionPuOutput.TTL;
+        Register.Axes_0.Commands.OptionModule.PU_Source = OptionPuSource.EncoderFast;
     }
 
     // -- entry point --

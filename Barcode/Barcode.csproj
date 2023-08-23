@@ -41,7 +41,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="TamaProgram.cs" />
+    <Compile Include="BarcodePulses.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
