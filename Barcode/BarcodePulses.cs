@@ -1,4 +1,6 @@
-﻿using Triamec.Tama.Rlid19;
+﻿using System;
+using System.Linq;
+using Triamec.Tama.Rlid19;
 using Triamec.Tama.Vmid5;
 using Triamec.TriaLink;
 
@@ -27,6 +29,34 @@ internal static class BarcodePulses
         public const int Go = 1;
     }
 
+    private static void ResetPU()
+    {
+        Register.Axes_0.Commands.OptionModule.PwmOut = 0;
+        Register.Axes_0.Commands.OptionModule.PU_Output = OptionPuOutput.Disabled;
+        Register.Axes_0.Commands.OptionModule.PU_Source = OptionPuSource.EncoderFast;
+        Register.Axes_0.Commands.OptionModule.PU_Mode = OptionPuMode.Disabled;
+        Register.Axes_0.Commands.OptionModule.PU_Fifo = OptionPuFifo.None;
+        Register.Axes_0.Commands.OptionModule.PU_PulseWidth = 0;
+        Register.Axes_0.Commands.OptionModule.PU_DeltaPosition = 0;
+        Register.Axes_0.Commands.OptionModule.PU_ReferencePosition = 0;
+        Register.Axes_0.Commands.OptionModule.PU_Count = 0;
+        Register.Axes_0.Commands.OptionModule.PU_DelayTime = 0;
+    }
+
+    private static void PreparePU()
+    {
+        Register.Axes_0.Commands.OptionModule.PwmOut = 1;
+        Register.Axes_0.Commands.OptionModule.PU_Output = OptionPuOutput.TTL;
+        //Register.Axes_0.Commands.OptionModule.PU_Source = OptionPuSource.EncoderFast;
+        Register.Axes_0.Commands.OptionModule.PU_Mode = OptionPuMode.Fifo;
+        //Register.Axes_0.Commands.OptionModule.PU_Fifo = OptionPuFifo.None;
+        //Register.Axes_0.Commands.OptionModule.PU_PulseWidth = 0;
+        //Register.Axes_0.Commands.OptionModule.PU_DeltaPosition = 0;
+        //Register.Axes_0.Commands.OptionModule.PU_ReferencePosition = 0;
+        //Register.Axes_0.Commands.OptionModule.PU_Count = 0;
+        //Register.Axes_0.Commands.OptionModule.PU_DelayTime = 0;
+    }
+
     // pulsing application constants
     const int cRows = 2;
     const float cMoveStartPosition = 30f;
@@ -52,6 +82,9 @@ internal static class BarcodePulses
         cPulseCountPositive[3] = 5;
         cPulseCountPositive[4] = 7;
 
+        //Array.Copy(cPulseCountPositive, cPulseCountNegative, cPulseCountPositive.Length);
+        //Array.Reverse(cPulseCountNegative, 0, cPulseCountPositive.Length);
+
         cPulseCountNegative[0] = 7;
         cPulseCountNegative[1] = 5;
         cPulseCountNegative[2] = 8;
@@ -64,24 +97,7 @@ internal static class BarcodePulses
         cPulseOn[3] = 0;
         cPulseOn[4] = 1;
 
-        //Register.Axes_0.Commands.OptionModule.PU_Output = OptionPuOutput.Disabled;
-        //Register.Axes_0.Commands.OptionModule.PU_Source = OptionPuSource.EncoderFast;
-        //Register.Axes_0.Commands.OptionModule.PU_Mode = OptionPuMode.Disabled;
-        //Register.Axes_0.Commands.OptionModule.PU_ReferencePosition = 0;
-        //Register.Axes_0.Commands.OptionModule.PU_DeltaPosition = 0;
-        //Register.Axes_0.Commands.OptionModule.PU_PulseWidth = cPulseWidth;
-        //Register.Axes_0.Commands.OptionModule.PU_Count = 0;
-
-        Register.Axes_0.Commands.OptionModule.PwmOut = 0;
-        Register.Axes_0.Commands.OptionModule.PU_Output = OptionPuOutput.Disabled;
-        Register.Axes_0.Commands.OptionModule.PU_Source = OptionPuSource.EncoderFast;
-        Register.Axes_0.Commands.OptionModule.PU_Mode = OptionPuMode.Disabled;
-        Register.Axes_0.Commands.OptionModule.PU_Fifo = OptionPuFifo.None;
-        Register.Axes_0.Commands.OptionModule.PU_PulseWidth = 0;
-        Register.Axes_0.Commands.OptionModule.PU_DeltaPosition = 0;
-        Register.Axes_0.Commands.OptionModule.PU_ReferencePosition = 0;
-        Register.Axes_0.Commands.OptionModule.PU_Count = 0;
-        Register.Axes_0.Commands.OptionModule.PU_DelayTime = 0;
+        ResetPU();
 
     }
     // -- entry point --
