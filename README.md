@@ -15,8 +15,8 @@ The whole pattern consists of 2 rows with 5 sequences each. The second row is fi
 
 ## Program Description
 
-1. Set the PU_ReferencePosition = 20, defining the start position of the first row.
-2. Activate the Pulsing Unit by setting the PU_Mode = Fifo.
+1. Set the `PU_ReferencePosition = 20`, defining the start position of the first row.
+2. Activate the Pulsing Unit by setting the `PU_Mode = Fifo`.
 3. Fill in the first row by pushing each sequence to the FIFO with the command `PU_FIFO = Append`.
 
 | Sequence         | 1       | 2   | 3       | 4   | 5       |
