@@ -172,7 +172,7 @@ internal static class BarcodePulses
                 break;
             case State.FillFifoNegative:
                 // set row reference position before activating the mode
-                if (Register.Axes_0.Commands.OptionModule.PU_ReferencePosition != cReferencePositive)
+                if (Register.Axes_0.Commands.OptionModule.PU_ReferencePosition != cReferenceNegative)
                 {
                     Register.Axes_0.Commands.OptionModule.PU_ReferencePosition = cReferenceNegative;
                     break;
