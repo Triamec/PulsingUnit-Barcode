@@ -62,8 +62,8 @@ internal static class BarcodePulses
 
     // pulsing application constants
     const int cRows = 2;
-    const float cMoveStartPosition = 30f;//42f;
-    const float cReferencePositive = 31f;//43f;
+    const float cMoveStartPosition = 30f;
+    const float cReferencePositive = 31f;
     const float cDeltaPosition = 1f;
     const float cPulseWidth = 0.0002f;
     const float cMoveEndPosition = 32 * cDeltaPosition + cMoveStartPosition;
@@ -84,9 +84,6 @@ internal static class BarcodePulses
         cPulseCountPositive[2] = 8;
         cPulseCountPositive[3] = 5;
         cPulseCountPositive[4] = 7;
-
-        //Array.Copy(cPulseCountPositive, cPulseCountNegative, cPulseCountPositive.Length);
-        //Array.Reverse(cPulseCountNegative, 0, cPulseCountPositive.Length);
 
         cPulseCountNegative[0] = 7;
         cPulseCountNegative[1] = 5;
