@@ -32,7 +32,7 @@ internal static class BarcodePulses
     const float cMoveStartPosition = 30f;
     const float cReferencePositive = 31f;
     const float cDeltaPosition = 1.0f;
-    const float cPulseWidth = 0.001f;
+    const float cPulseWidth = 0.0005f;
     const float cMoveEndPosition = 32 * cDeltaPosition + cMoveStartPosition;
     const float cReferenceNegative = cMoveEndPosition - cDeltaPosition;
 
@@ -46,17 +46,17 @@ internal static class BarcodePulses
     // Constructor
     static BarcodePulses()
     {
-        cPulseCountPositive[0] = 8;
-        cPulseCountPositive[1] = 5;
+        cPulseCountPositive[0] = 10;
+        cPulseCountPositive[1] = 2;
         cPulseCountPositive[2] = 8;
         cPulseCountPositive[3] = 5;
-        cPulseCountPositive[4] = 5;
+        cPulseCountPositive[4] = 7;
 
-        cPulseCountNegative[0] = 5;
+        cPulseCountNegative[0] = 7;
         cPulseCountNegative[1] = 5;
         cPulseCountNegative[2] = 8;
-        cPulseCountNegative[3] = 5;
-        cPulseCountNegative[4] = 8;
+        cPulseCountNegative[3] = 2;
+        cPulseCountNegative[4] = 10;
 
         cPulseOn[0] = 1;
         cPulseOn[1] = 0;
@@ -143,7 +143,7 @@ internal static class BarcodePulses
                     if (segment_index < 5)
                     {
                         Register.Axes_0.Commands.OptionModule.PU_PulseWidth = cPulseWidth * cPulseOn[segment_index];
-                        Register.Axes_0.Commands.OptionModule.PU_Count += (uint)cPulseCountNegative[segment_index];
+                        Register.Axes_0.Commands.OptionModule.PU_Count += (uint)cPulseCountPositive[segment_index];
                         Register.Axes_0.Commands.OptionModule.PU_Fifo = OptionPuFifo.Append;
                         segment_index++;
                     }
