@@ -6,7 +6,7 @@ using Triamec.TriaLink;
 // program. This file is located in the bin\Debug or bin\Release subfolders and will commonly be copied into the
 // Tama directory of the default workspace, too.
 [Tama]
-internal class BarcodePulses
+internal static class BarcodePulses
 {
 
     // Linear State Machine, shown in Register.Application.TamaControl.IsochronousMainState
@@ -44,7 +44,7 @@ internal class BarcodePulses
     static int segment_index = 0;
 
     // Constructor
-    public BarcodePulses()
+    static BarcodePulses()
     {
         cPulseCountPositive[0] = 8;
         cPulseCountPositive[1] = 5;
@@ -143,9 +143,10 @@ internal class BarcodePulses
                     if (segment_index < 5)
                     {
                         //Register.Axes_0.Commands.OptionModule.PU_DeltaPosition = cDeltaPosition;
-                        //Register.Axes_0.Commands.OptionModule.PU_PulseWidth = cDeltaPosition*cPulseOn[segment_index];
+                        //Register.Axes_0.Commands.OptionModule.PU_PulseWidth = cDeltaPosition*1;//*cPulseOn[0];
+                        Register.Axes_0.Commands.OptionModule.PU_PulseWidth = cDeltaPosition * cPulseOn[segment_index];
                         Register.Axes_0.Commands.OptionModule.PU_Count = Register.Axes_0.Commands.OptionModule.PU_Count + 300;
-                        //Register.Axes_0.Commands.OptionModule.PU_Count += (uint)cPulseCountPositive[segment_index];
+                        //Register.Axes_0.Commands.OptionModule.PU_Count = Register.Axes_0.Commands.OptionModule.PU_Count + (uint)cPulseCountPositive[segment_index];
                         Register.Axes_0.Commands.OptionModule.PU_Fifo = OptionPuFifo.Append;
                         segment_index++;
                     }
