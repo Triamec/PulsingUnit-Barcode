@@ -62,34 +62,35 @@ internal static class BarcodePulses
 
     // pulsing application constants
     const int cRows = 2;
-    const float cMoveStartPosition = 30f;
-    const float cReferencePositive = 31f;
-    const float cDeltaPosition = 1f;
-    const float cPulseWidth = 0.0002f;
-    const float cMoveEndPosition = 32 * cDeltaPosition + cMoveStartPosition;
+    const float cMoveStartPosition = 19.9f;
+    const float cReferencePositive = 20f;
+    const float cDeltaPosition = 0.1f;
+    const float cPulseWidth = 0.00001f;
+    const float cMoveEndPosition = 31 * cDeltaPosition + cMoveStartPosition;
     const float cReferenceNegative = cMoveEndPosition - cDeltaPosition;
 
     // internal variables
+    const int numberOfSegments = 5;
     static int _row_index;
-    static int[] cPulseCountPositive = new int[5];
-    static int[] cPulseCountNegative = new int[5];
-    static int[] cPulseOn = new int[5];
-    static int segment_index = 0;
+    static int[] cPulseCountPositive = new int[numberOfSegments];
+    static int[] cPulseCountNegative = new int[numberOfSegments];
+    static int[] cPulseOn = new int[numberOfSegments];
+    static int segmentIndex = 0;
 
     // Constructor
     static BarcodePulses()
     {
-        cPulseCountPositive[0] = 10;
-        cPulseCountPositive[1] = 2;
+        cPulseCountPositive[0] = 8;
+        cPulseCountPositive[1] = 5;
         cPulseCountPositive[2] = 8;
         cPulseCountPositive[3] = 5;
-        cPulseCountPositive[4] = 7;
+        cPulseCountPositive[4] = 5;
 
-        cPulseCountNegative[0] = 7;
+        cPulseCountNegative[0] = 5;
         cPulseCountNegative[1] = 5;
         cPulseCountNegative[2] = 8;
-        cPulseCountNegative[3] = 2;
-        cPulseCountNegative[4] = 10;
+        cPulseCountNegative[3] = 5;
+        cPulseCountNegative[4] = 8;
 
         cPulseOn[0] = 1;
         cPulseOn[1] = 0;
@@ -111,7 +112,7 @@ internal static class BarcodePulses
                 {
                     case Command.Go:
                         _row_index = 0;
-                        segment_index = 0;
+                        segmentIndex = 0;
                         MoveTo(cMoveStartPosition);
                         Register.Application.TamaControl.IsochronousMainState = (int)State.MoveToStart;
                         ResetPU() ;
@@ -129,14 +130,14 @@ internal static class BarcodePulses
             case State.FillFifoPositive:
                 if (_row_index < cRows)
                 {
-                    if (segment_index < 5)
+                    if (segmentIndex < numberOfSegments)
                     {
                         Register.Axes_0.Commands.OptionModule.PU_DeltaPosition = cDeltaPosition;
                         Register.Axes_0.Commands.OptionModule.PU_ReferencePosition = cReferencePositive;
-                        Register.Axes_0.Commands.OptionModule.PU_PulseWidth = cPulseWidth * cPulseOn[segment_index];
-                        Register.Axes_0.Commands.OptionModule.PU_Count += (uint)cPulseCountPositive[segment_index];
+                        Register.Axes_0.Commands.OptionModule.PU_PulseWidth = cPulseWidth * cPulseOn[segmentIndex];
+                        Register.Axes_0.Commands.OptionModule.PU_Count += (uint)cPulseCountPositive[segmentIndex];
                         Register.Axes_0.Commands.OptionModule.PU_Fifo = OptionPuFifo.Append;
-                        segment_index++;
+                        segmentIndex++;
                     }
                     else
                     {
@@ -156,7 +157,7 @@ internal static class BarcodePulses
                     Register.Axes_0.Commands.OptionModule.PU_Count = 0;
                     Register.Application.TamaControl.IsochronousMainState = (int)State.FillFifoNegative;
                     PreparePUNegative();
-                    segment_index = 0;
+                    segmentIndex = 0;
                     _row_index++;
 
                     // -- Move other Axis to align with next row --
@@ -165,13 +166,13 @@ internal static class BarcodePulses
             case State.FillFifoNegative:
                 if (_row_index < cRows)
                 {
-                    if (segment_index < 5)
+                    if (segmentIndex < numberOfSegments)
                     {
                         Register.Axes_0.Commands.OptionModule.PU_DeltaPosition = -cDeltaPosition;
-                        Register.Axes_0.Commands.OptionModule.PU_PulseWidth = cPulseWidth * cPulseOn[segment_index];
-                        Register.Axes_0.Commands.OptionModule.PU_Count += (uint)cPulseCountNegative[segment_index];
+                        Register.Axes_0.Commands.OptionModule.PU_PulseWidth = cPulseWidth * cPulseOn[segmentIndex];
+                        Register.Axes_0.Commands.OptionModule.PU_Count += (uint)cPulseCountNegative[segmentIndex];
                         Register.Axes_0.Commands.OptionModule.PU_Fifo = OptionPuFifo.Append;
-                        segment_index++;
+                        segmentIndex++;
                     }
                     else
                     {
