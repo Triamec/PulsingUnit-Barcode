@@ -2,7 +2,7 @@
 
  [![TAM - Tama](https://img.shields.io/static/v1?label=TAM&message=Tama&color=b51839)](https://www.triamec.com/tam-tama.html)
 
-This example shows how a barcode like pattern, configured in Fifo mode.
+This example shows how to fire a barcode like pattern, configured in Fifo mode. The *Pulsing Unit* is documented in [AN152](https://www.triamec.com/en/documents.html).
 
 - The program doesn't depend on a specific axis unit, nevertheless it is designed for the example in mm.
 - The start position of the barcode is at 20mm.
