@@ -10,7 +10,8 @@ This example shows how to fire a barcode like pattern, configured in Fifo mode. 
 - The gaps are pulsed with an ON-time of 0 seconds, which results in no pulse output.
 
 The whole pattern consists of 2 rows with 5 sequences each. The second row is fired in reverse direction.
-**Axis_0 need to be enabled to run this example**
+
+**Axis_0 needs to be enabled to run this example**
 
 ![Pattern](doc/BarcodeExample.png)
 
