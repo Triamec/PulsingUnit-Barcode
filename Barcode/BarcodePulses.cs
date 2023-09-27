@@ -100,6 +100,9 @@ internal static class BarcodePulses
 
         ResetPU();
 
+        // setting command to idle to avoid automatic start
+        Register.Application.TamaControl.IsochronousMainCommand = 0;
+
     }
     // -- entry point --
     [TamaTask(Task.IsochronousMain)]
