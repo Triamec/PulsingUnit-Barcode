@@ -72,10 +72,10 @@ internal static class BarcodePulses
     // internal variables
     const int numberOfSegments = 5;
     static int _row_index;
-    static int[] cPulseCountPositive = new int[numberOfSegments];
-    static int[] cPulseCountNegative = new int[numberOfSegments];
-    static int[] cPulseOn = new int[numberOfSegments];
-    static int segmentIndex = 0;
+    static readonly int[] cPulseCountPositive = new int[numberOfSegments];
+    static readonly int[] cPulseCountNegative = new int[numberOfSegments];
+    static readonly int[] cPulseOn = new int[numberOfSegments];
+    static int segmentIndex;
 
     // Constructor
     static BarcodePulses()
