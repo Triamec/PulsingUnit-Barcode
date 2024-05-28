@@ -138,7 +138,8 @@ internal static class BarcodePulses
                         Register.Axes_0.Commands.OptionModule.PU_DeltaPosition = cDeltaPosition;
                         Register.Axes_0.Commands.OptionModule.PU_ReferencePosition = cReferencePositive;
                         Register.Axes_0.Commands.OptionModule.PU_PulseWidth = cPulseWidth * cPulseOn[segmentIndex];
-                        Register.Axes_0.Commands.OptionModule.PU_Count += (uint)cPulseCountPositive[segmentIndex];
+                        Register.Axes_0.Commands.OptionModule.PU_Count = Register.Axes_0.Commands.OptionModule.PU_Count +
+                            (uint)cPulseCountPositive[segmentIndex];
                         Register.Axes_0.Commands.OptionModule.PU_Fifo = OptionPuFifo.Append;
                         segmentIndex++;
                     }
